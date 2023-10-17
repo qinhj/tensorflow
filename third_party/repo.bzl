@@ -70,12 +70,19 @@ def _tf_http_archive_impl(ctx):
             build_file = ctx.attr.system_build_file,
         ))
     else:
-        ctx.download_and_extract(
-            url = ctx.attr.urls,
-            sha256 = ctx.attr.sha256,
-            type = ctx.attr.type,
-            stripPrefix = ctx.attr.strip_prefix,
-        )
+        if len(ctx.attr.local_files):
+            for file in ctx.attr.local_files:
+                ctx.extract(
+                    archive = file, # output = '',
+                    stripPrefix = ctx.attr.strip_prefix,
+                )
+        else:
+            ctx.download_and_extract(
+                url = ctx.attr.urls,
+                sha256 = ctx.attr.sha256,
+                type = ctx.attr.type,
+                stripPrefix = ctx.attr.strip_prefix,
+            )
         if patch_files:
             for patch_file in patch_files:
                 patch_file = ctx.path(Label(patch_file)) if patch_file else None
@@ -91,6 +98,7 @@ _tf_http_archive = repository_rule(
     attrs = {
         "sha256": attr.string(mandatory = True),
         "urls": attr.string_list(mandatory = True),
+        "local_files": attr.string_list(),
         "strip_prefix": attr.string(),
         "type": attr.string(),
         "patch_file": attr.string_list(),
