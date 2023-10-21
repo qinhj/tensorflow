@@ -640,6 +640,10 @@ cc_library(
         "@llvm-project//mlir:SideEffectInterfaces",
         "@llvm-project//mlir:Support",
     ],
+    copts = [
+        "--param", "ggc-min-expand=4",
+        "--param", "ggc-min-heapsize=1024",
+    ],
 )
 
 cc_library(

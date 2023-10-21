@@ -249,7 +249,10 @@ cc_library(
     hdrs = [
         ":xla_compiled_cpu_runtime_hdrs",
     ],
-    copts = runtime_copts() + tf_openmp_copts(),
+    copts = runtime_copts() + tf_openmp_copts() + [
+        "--param", "ggc-min-expand=4",
+        "--param", "ggc-min-heapsize=1024",
+    ],
     defines = ["EIGEN_NEON_GEBP_NR=4"],
     features = [
         "fully_static_link",

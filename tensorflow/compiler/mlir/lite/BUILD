@@ -345,6 +345,10 @@ cc_library(
         "@llvm-project//mlir:Support",
         "@llvm-project//mlir:TransformUtils",
     ],
+    copts = [
+        "--param", "ggc-min-expand=4",
+        "--param", "ggc-min-heapsize=1024",
+    ],
 )
 
 cc_library(
