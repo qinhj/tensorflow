@@ -600,6 +600,7 @@ def target_llvm_triple():
         "//tensorflow:macos_arm64": "aarch64-none-darwin",
         "//tensorflow:windows": "x86_64-none-windows",
         "//tensorflow:linux_s390x": "systemz-none-linux-gnu",
+        "//tensorflow:linux_riscv64": "riscv64-none-linux-gnu",
         # internal placeholder,
         "//conditions:default": "x86_64-pc-linux",
     })

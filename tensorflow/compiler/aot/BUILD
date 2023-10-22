@@ -123,6 +123,8 @@ cc_library(
         "@llvm-project//llvm:ARMCodeGen",  # fixdeps: keep
         "@llvm-project//llvm:PowerPCAsmParser",  # fixdeps: keep
         "@llvm-project//llvm:PowerPCCodeGen",  # fixdeps: keep
+        "@llvm-project//llvm:RISCVAsmParser",  # fixdeps: keep
+        "@llvm-project//llvm:RISCVCodeGen",  # fixdeps: keep
         "@llvm-project//llvm:X86AsmParser",  # fixdeps: keep
         "@llvm-project//llvm:X86CodeGen",  # fixdeps: keep
     ] + if_llvm_system_z_available([
