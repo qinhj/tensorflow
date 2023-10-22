@@ -247,6 +247,9 @@ cc_library(
         "//tensorflow/tsl:linux_ppc64le": [
             "@llvm-project//llvm:PowerPCAsmParser",
         ],
+        "//tensorflow/tsl:linux_riscv64": [
+            "@llvm-project//llvm:RISCVAsmParser",
+        ],
         "//tensorflow/tsl:macos_arm64": [
             "@llvm-project//llvm:AArch64AsmParser",
         ],

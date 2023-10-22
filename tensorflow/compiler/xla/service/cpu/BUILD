@@ -367,6 +367,9 @@ cc_library(
         "//tensorflow/tsl:linux_ppc64le": [
             "@llvm-project//llvm:PowerPCCodeGen",  # fixdeps: keep
         ],
+        "//tensorflow/tsl:linux_riscv64": [
+            "@llvm-project//llvm:RISCVCodeGen",  # fixdeps: keep
+        ],
         "//tensorflow/tsl:macos_arm64": [
             "@llvm-project//llvm:AArch64CodeGen",  # fixdeps: keep
         ],

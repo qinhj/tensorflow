@@ -268,6 +268,10 @@ cc_library(
             "@llvm-project//llvm:PowerPCAsmParser",  # fixdeps: keep
             "@llvm-project//llvm:PowerPCCodeGen",  # fixdeps: keep
         ],
+        "//tensorflow/tsl:linux_riscv64": [
+            "@llvm-project//llvm:RISCVAsmParser",  # fixdeps: keep
+            "@llvm-project//llvm:RISCVCodeGen",  # fixdeps: keep
+        ],
         "//tensorflow/tsl:macos_arm64": [
             "@llvm-project//llvm:AArch64AsmParser",  # fixdeps: keep
             "@llvm-project//llvm:AArch64CodeGen",  # fixdeps: keep

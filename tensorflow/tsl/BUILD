@@ -299,6 +299,12 @@ config_setting(
     visibility = ["//visibility:public"],
 )
 
+config_setting(
+    name = "linux_riscv64",
+    values = {"cpu": "riscv64"},
+    visibility = ["//visibility:public"],
+)
+
 # Config setting that disables the default logger, only logging
 # to registered TFLogSinks
 config_setting(
