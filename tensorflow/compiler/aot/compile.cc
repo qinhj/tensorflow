@@ -205,6 +205,11 @@ static void InitializeTargets() {
   LLVMInitializePowerPCTargetMC();
   LLVMInitializePowerPCAsmParser();
   LLVMInitializePowerPCAsmPrinter();
+  LLVMInitializeRISCVTarget();
+  LLVMInitializeRISCVTargetInfo();
+  LLVMInitializeRISCVTargetMC();
+  LLVMInitializeRISCVAsmParser();
+  LLVMInitializeRISCVAsmPrinter();
   LLVMInitializeX86Target();
   LLVMInitializeX86TargetInfo();
   LLVMInitializeX86TargetMC();
