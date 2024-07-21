@@ -27,6 +27,7 @@ limitations under the License.
 #include <tuple>
 #include <utility>
 #include <vector>
+#include <iostream>
 
 // IWYU pragma: no_include "llvm/Config/Disassemblers.def.inc"
 // IWYU pragma: no_include "llvm/Config/Targets.def.inc"
@@ -1594,6 +1595,10 @@ CpuCompiler::CompileAheadOfTime(std::unique_ptr<HloModuleGroup> module_group,
       llvm::TargetRegistry::lookupTarget(triple.getTriple(), error);
   if (target == nullptr) {
     return InternalError("TargetRegistry::lookupTarget failed: %s", error);
+  } else {
+    std::cout << "[" << __FUNCTION__ << "] Target name: " << target->getName() << ", "
+              << "ShortDescription: " << target->getShortDescription() << ", "
+              << "BackendName: " << target->getBackendName() << std::endl;
   }
 
   llvm::Reloc::Model reloc_model = llvm::Reloc::Static;
@@ -1627,11 +1632,19 @@ CpuCompiler::CompileAheadOfTime(std::unique_ptr<HloModuleGroup> module_group,
       break;
   }
   llvm::CodeGenOpt::Level opt_level = CodeGenOptLevel(modules[0]->config());
+  llvm::TargetOptions target_options = CompilerTargetOptions(modules[0]->config());
+  if (std::string(target->getName()) == "riscv64") {
+    // TODO: get default abi from toolchain
+    target_options.MCOptions.ABIName = "lp64d";
+  }
   std::unique_ptr<llvm::TargetMachine> target_machine =
       absl::WrapUnique(target->createTargetMachine(
           triple.getTriple(), options.cpu_name(), options.features(),
-          CompilerTargetOptions(modules[0]->config()), reloc_model,
+          target_options, reloc_model,
           std::nullopt, opt_level));
+  std::cout << "[" << __FUNCTION__ << "] create TM with cpu name: "
+            << options.cpu_name() << ", features: " << options.features()
+            << std::endl;
 
   // Compile must be thread-safe so create a new LLVM context for the module.
   mlir::MLIRContext mlir_context;

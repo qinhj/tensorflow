@@ -316,7 +316,8 @@ def aot_compile_cpu_meta_graph_def(checkpoint_path,
                                    target_triple,
                                    target_cpu,
                                    variables_to_feed=(),
-                                   multithreading=False):
+                                   multithreading=False,
+                                   target_features=""):
   """Compile a `MetaGraphDef` to header+object files in `output_prefix`.
 
   Use XLA AOT (`tfcompile`) to convert the given meta graph and
@@ -401,6 +402,7 @@ def aot_compile_cpu_meta_graph_def(checkpoint_path,
       cpp_class=cpp_class,
       target_triple=target_triple,
       target_cpu=target_cpu,
+      target_features=target_features,
       entry_point=entry_point,
       out_function_object='{}.o'.format(output_prefix),
       out_header='{}.h'.format(output_prefix),

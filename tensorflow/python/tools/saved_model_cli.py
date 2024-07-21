@@ -194,6 +194,11 @@ _SMCLI_TARGET_CPU = flags.DEFINE_string(
     help='Target CPU name for LLVM during AOT compilation. Examples include '
     '\'x86_64\', \'skylake\', \'haswell\', \'westmere\', \'\' (unknown).')
 
+_SMCLI_TARGET_FEATURES = flags.DEFINE_string(
+    name='target_features', default='',
+    help='Target features for LLVM during AOT compilation. Examples include '
+    '\'+avx2\', \'+neon\', ...')
+
 _SMCLI_CPP_CLASS = flags.DEFINE_string(
     name='cpp_class', default=None,
     help='The name of the generated C++ class, wrapping the generated function.'
@@ -1115,6 +1120,7 @@ def aot_compile_cpu():
       output_prefix=_SMCLI_OUTPUT_PREFIX.value,
       target_triple=_SMCLI_TARGET_TRIPLE.value,
       target_cpu=_SMCLI_TARGET_CPU.value,
+      target_features=_SMCLI_TARGET_FEATURES.value,
       cpp_class=_SMCLI_CPP_CLASS.value,
       multithreading=(
           _SMCLI_MULTITHREADING.value.lower() not in ('f', 'false', '0')))

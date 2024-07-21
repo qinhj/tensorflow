@@ -21,6 +21,7 @@ def saved_model_compile_aot(
         variables_to_feed = "",
         target_triple = None,
         target_cpu = None,
+        target_features = None,
         multithreading = False,
         force_without_xla_support_flag = True,
         tags = None):
@@ -144,6 +145,7 @@ def saved_model_compile_aot(
             "--multithreading {} ".format(multithreading) +
             "--target_triple " + target_triple + " " +
             ("--target_cpu " + target_cpu + " " if target_cpu else "") +
+            ("--target_features " + target_features + " " if target_features else "") +
             "--tag_set {} ".format(tag_set)
         ),
         tags = tags,

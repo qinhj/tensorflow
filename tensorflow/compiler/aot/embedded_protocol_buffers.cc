@@ -105,9 +105,14 @@ GetTargetMachineFromTriple(absl::string_view target_triple) {
                               error.c_str());
   }
 
+  llvm::TargetOptions target_options;
+  if (std::string(target->getName()) == "riscv64") {
+    // TODO: get default abi from toolchain
+    target_options.MCOptions.ABIName = "lp64d";
+  }
   return absl::WrapUnique(target->createTargetMachine(
       normalized_triple, /*CPU=*/"",
-      /*Features=*/"", llvm::TargetOptions(), std::nullopt));
+      /*Features=*/"", target_options, std::nullopt));
 }
 
 StatusOr<EmbeddedProtocolBuffers> CreateEmbeddedProtocolBuffers(
